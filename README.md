@@ -10,9 +10,9 @@ func main() {
 
 	// Given
 	count := 10
-	mux := httpbuffer.New(ctx, ProcessAll,
-		httpbuffer.BatchSize(count),
-		httpbuffer.Timeout(time.Second),
+	mux := muxer.New(ctx, ProcessAll,
+		muxer.BatchSize(count),
+		muxer.Timeout(time.Second),
 	)
 	go mux.Start()
 
