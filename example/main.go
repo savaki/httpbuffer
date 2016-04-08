@@ -5,7 +5,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/savaki/httpbuffer"
+	"github.com/savaki/muxer"
 	"golang.org/x/net/context"
 )
 
@@ -14,7 +14,7 @@ func ProcessAll(items []interface{}) (interface{}, error) {
 	return "world", nil
 }
 
-func MakeRequest(mux *httpbuffer.Muxer, wg *sync.WaitGroup, index int) {
+func MakeRequest(mux *muxer.Muxer, wg *sync.WaitGroup, index int) {
 	defer wg.Done()
 	fmt.Printf("#%2d: Sent\n", index)
 	resp, err := mux.Request("hello")
@@ -27,9 +27,9 @@ func main() {
 
 	// Given
 	count := 10
-	mux := httpbuffer.New(ctx, ProcessAll,
-		httpbuffer.BatchSize(count),
-		httpbuffer.Timeout(time.Second),
+	mux := muxer.New(ctx, ProcessAll,
+		muxer.BatchSize(count),
+		muxer.Timeout(time.Second),
 	)
 	go mux.Start()
 

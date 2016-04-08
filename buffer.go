@@ -1,4 +1,4 @@
-package httpbuffer
+package muxer
 
 import (
 	"sync"
